@@ -36,7 +36,7 @@ check_dependencies() {
         exit 1
     fi
     
-    if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null; then
+    if ! docker compose version &> /dev/null; then
         log_error "Docker Compose is not installed. Please install Docker Compose first."
         exit 1
     fi
@@ -90,22 +90,22 @@ deploy() {
     fi
     
     log_info "Stopping existing containers..."
-    docker-compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" down --remove-orphans 2>/dev/null || true
+    docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" down --remove-orphans 2>/dev/null || true
     
     log_info "Building containers..."
-    docker-compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" build --no-cache
+    docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" build --no-cache
     
     log_info "Starting containers..."
-    docker-compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" up -d
+    docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" up -d
     
     log_info "Waiting for services to be healthy..."
     sleep 10
     
     log_info "Running database migrations..."
-    docker-compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" exec -T backend alembic upgrade head 2>/dev/null || true
+    docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" exec -T backend alembic upgrade head 2>/dev/null || true
     
     log_info "Seeding admin users..."
-    docker-compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" exec -T backend python seed_admin.py 2>/dev/null || true
+    docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" exec -T backend python seed_admin.py 2>/dev/null || true
     
     log_success "Deployment completed!"
     show_status
@@ -114,7 +114,7 @@ deploy() {
 show_status() {
     echo ""
     log_info "Service Status:"
-    docker-compose -f "$COMPOSE_FILE" ps
+    docker compose -f "$COMPOSE_FILE" ps
     echo ""
     log_info "Access URLs:"
     echo "  Frontend: http://localhost:${FRONTEND_PORT:-3100}"
@@ -124,18 +124,18 @@ show_status() {
 }
 
 show_logs() {
-    docker-compose -f "$COMPOSE_FILE" logs -f --tail=100 "$@"
+    docker compose -f "$COMPOSE_FILE" logs -f --tail=100 "$@"
 }
 
 stop_services() {
     log_info "Stopping services..."
-    docker-compose -f "$COMPOSE_FILE" down
+    docker compose -f "$COMPOSE_FILE" down
     log_success "Services stopped."
 }
 
 restart_services() {
     log_info "Restarting services..."
-    docker-compose -f "$COMPOSE_FILE" restart
+    docker compose -f "$COMPOSE_FILE" restart
     log_success "Services restarted."
 }
 
@@ -174,7 +174,7 @@ main() {
             deploy
             ;;
         start)
-            docker-compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" up -d
+            docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" up -d
             show_status
             ;;
         stop)
