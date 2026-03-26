@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import Card from '../components/common/Card'
-import { trafficService, type TrafficData, type HeatmapPoint, type CongestionScore, type Hotspot } from '../services/traffic'
+import { trafficService, type TrafficData, type CongestionScore, type Hotspot } from '../services/traffic'
 
 export default function Traffic() {
   const [trafficData, setTrafficData] = useState<TrafficData[]>([])
-  const [heatmapData, setHeatmapData] = useState<HeatmapPoint[]>([])
   const [congestionData, setCongestionData] = useState<CongestionScore[]>([])
   const [hotspots, setHotspots] = useState<Hotspot[]>([])
   const [loading, setLoading] = useState(true)
@@ -18,14 +17,12 @@ export default function Traffic() {
     try {
       setLoading(true)
       setError(null)
-      const [trafficRes, heatmapRes, congestionRes, hotspotsRes] = await Promise.all([
+      const [trafficRes, congestionRes, hotspotsRes] = await Promise.all([
         trafficService.getTrafficData({ page: 1, page_size: 20 }),
-        trafficService.getHeatmapData(),
         trafficService.getCongestionScores(),
         trafficService.getHotspots(),
       ])
       setTrafficData(trafficRes.items)
-      setHeatmapData(heatmapRes)
       setCongestionData(congestionRes)
       setHotspots(hotspotsRes)
     } catch (err) {

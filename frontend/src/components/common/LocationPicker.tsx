@@ -1,3 +1,4 @@
+/// <reference types="google.maps" />
 import { useState, useEffect, useRef, useCallback } from 'react'
 
 declare global {

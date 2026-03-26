@@ -3,7 +3,7 @@ import Card from '../components/common/Card'
 import Button from '../components/common/Button'
 import {
   simulationService,
-  type AIRecommendationResponse,
+  type AIChatResponse,
 } from '../services/simulation'
 
 interface ChatMessage {
@@ -11,7 +11,7 @@ interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
   timestamp: Date
-  data?: AIRecommendationResponse
+  data?: AIChatResponse
 }
 
 const quickActions = [
