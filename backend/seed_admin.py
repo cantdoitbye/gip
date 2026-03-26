@@ -16,25 +16,25 @@ async def seed_users():
 
     async with async_session_maker() as db:
         demo_users = [
-            {
-                "email": "admin@infrastructure.ap.gov.in",
-                "password": "admin123",
-                "full_name": "System Administrator",
-                "role": UserRole.admin,
-            },
-            {
-                "email": "planner@infrastructure.ap.gov.in",
-                "password": "planner123",
-                "full_name": "Infrastructure Planner",
-                "role": UserRole.planner,
-            },
-            {
-                "email": "viewer@infrastructure.ap.gov.in",
-                "password": "viewer123",
-                "full_name": "Demo Viewer",
-                "role": UserRole.viewer,
-            },
-        ]
+        {
+            "email": "admin@ooumph.com",
+            "password": "admin123",
+            "full_name": "System Administrator",
+            "role": UserRole.admin,
+        },
+        {
+            "email": "planner@ooumph.com",
+            "password": "planner123",
+            "full_name": "Infrastructure Planner",
+            "role": UserRole.planner,
+        },
+        {
+            "email": "viewer@ooumph.com",
+            "password": "viewer123",
+            "full_name": "Demo Viewer",
+            "role": UserRole.viewer,
+        },
+    ]
 
         print("\n------------------------------")
         print("Demo Users Setup")
@@ -63,13 +63,13 @@ async def seed_users():
         print("Demo Credentials for Login:")
         print("------------------------------")
         print("\nAdministrator:")
-        print("  Email: admin@infrastructure.ap.gov.in")
+        print("  Email: admin@ooumph.com")
         print("  Password: admin123")
         print("\nInfrastructure Planner:")
-        print("  Email: planner@infrastructure.ap.gov.in")
+        print("  Email: planner@ooumph.com")
         print("  Password: planner123")
         print("\nViewer:")
-        print("  Email: viewer@infrastructure.ap.gov.in")
+        print("  Email: viewer@ooumph.com")
         print("  Password: viewer123")
         print("\n------------------------------")
 

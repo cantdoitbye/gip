@@ -27,8 +27,8 @@ export default function Login() {
   const fillDemoCredentials = (role: 'admin' | 'planner' | 'viewer') => {
     const credentials = {
       admin: { email: 'admin@ooumph.com', password: 'admin123' },
-      planner: { email: 'admin@ooumph.com', password: 'planner123' },
-      viewer: { email: 'viewer@infrastructure.ap.gov.in', password: 'viewer123' },
+      planner: { email: 'planner@ooumph.com', password: 'planner123' },
+      viewer: { email: 'viewer@ooumph.com', password: 'viewer123' },
     }
     setValue('email', credentials[role].email)
     setValue('password', credentials[role].password)
